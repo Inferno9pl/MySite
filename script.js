@@ -41,6 +41,14 @@ function handleEnd(evt) {
 }
 
 
+function textInDiv(type, text, div) {
+	var tag = document.createElement(type);
+	var text = document.createTextNode(text);
+	tag.appendChild(text);
+	div.appendChild(tag);
+}
+
+
 function generateDays() {
     var box = document.getElementById("daysBox");
 
@@ -49,10 +57,40 @@ function generateDays() {
     var difference = date1.getTime() - date2;
     var days = Math.ceil(difference / (1000 * 3600 * 24));
 
-    for(var i = 1; i <= days; i++) {
-        var tag = document.createElement("p");
-        var text = document.createTextNode(i);
-        tag.appendChild(text);
-        box.appendChild(tag);
-    }
+	if(days >= 1) {
+		for(var i = 1; i <= days; i++) {
+			textInDiv("p", i, box);
+		}
+		
+		textInDiv("h2", "Jeszcze tylko tyle dni..", box);
+		
+		for(var i = 1; i <= 5; i++) {
+			textInDiv("p", ".", box);
+		}
+			
+		textInDiv("h2", "..i ślub!", box);
+			
+		for(var i = 1; i <= 5; i++) {
+			textInDiv("p", ".", box);
+		}
+		
+		textInDiv("h1", "Pobieramy się!", box);
+		
+	} else if(days == 0) {		
+		textInDiv("h1", "Stało się!", box);
+		textInDiv("h1", "Dziś wielki dzień!", box);
+	} else {
+		textInDiv("h1", "Już zaobrączkowani jesteśmy razem:", box);
+		
+		
+		if(days == -1) {
+			textInDiv("h1", -days + " dzień", box);
+		}
+		else {
+			textInDiv("h1", -days + " dni", box);
+		}
+		
+		
+		
+	}
 }
